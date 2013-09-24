@@ -15,6 +15,10 @@ if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
 
+if [ -f ~/.git-completion ]; then
+  . ~/.git-completion
+fi
+
 IS_CYGWIN=`env | grep -i windows | wc -l`
 
 if [ ! ${IS_CYGWIN} -eq "0" ]; then

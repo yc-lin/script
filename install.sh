@@ -4,36 +4,36 @@ OS=`uname`
 
 function CreateBackUpFile()
 {
-    if [ -e ~/${1} ]; then
+    if [ -e ${HOME}/${1} ]; then
         mv ${1} ${1}.bak
     fi
 }
 
-CreateBackUpFile "~/.vim"
-ln -s ~/.script/vim ~/.vim
+CreateBackUpFile "${HOME}/.vim"
+ln -s ${HOME}/.script/vim ${HOME}/.vim
 
-CreateBackUpFile "~/.vimrc"
-ln -s ~/.script/config/.vimrc ~/.vimrc
+CreateBackUpFile "${HOME}/.vimrc"
+ln -s ${HOME}/.script/config/.vimrc ${HOME}/.vimrc
 
-CreateBackUpFile "~/.bashrc"
-ln -s ~/.script/config/.bashrc ~/.bashrc
+CreateBackUpFile "${HOME}/.bashrc"
+ln -s ${HOME}/.script/config/.bashrc ${HOME}/.bashrc
 
-CreateBackUpFile "~/.profile"
-ln -s ~/.script/config/.profile ~/.profile
+CreateBackUpFile "${HOME}/.profile"
+ln -s ${HOME}/.script/config/.profile ${HOME}/.profile
 
-CreateBackUpFile "~/.gitconfig"
-ln -s ~/.script/config/.gitconfig ~/.gitconfig
+CreateBackUpFile "${HOME}/.gitconfig"
+ln -s ${HOME}/.script/config/.gitconfig ${HOME}/.gitconfig
 
-if [ ! -d ~/.cgdb ]; then
-    mkdir ~/.cgdb
+if [ ! -d ${HOME}/.cgdb ]; then
+    mkdir ${HOME}/.cgdb
 fi
 
-ln -s ~/.script/config/cgdbrc ~/.cgdb/cgdbrc
+ln -s ${HOME}/.script/config/cgdbrc ${HOME}/.cgdb/cgdbrc
 
 CreateBackUpFile ".gdbinit"
-ln -s .script/config/.gdbinit ~/.gdbinit
+ln -s .script/config/.gdbinit ${HOME}/.gdbinit
 CreateBackUpFile ".gdbinit_stl"
-ln -s .script/config/.gdbinit_stl ~/.gdbinit_stl
+ln -s .script/config/.gdbinit_stl ${HOME}/.gdbinit_stl
 
-touch ~/.scd_bookmark
-touch ~/.scd_list
+touch ${HOME}/.scd_bookmark
+touch ${HOME}/.scd_list
