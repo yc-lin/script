@@ -19,16 +19,9 @@ if [ -f ~/.git-completion ]; then
   . ~/.git-completion
 fi
 
-IS_CYGWIN=`env | grep -i windows | wc -l`
-
-if [ ! ${IS_CYGWIN} -eq "0" ]; then
-    export LC_ALL="en_US"
-fi
-#export TERM="xterm-256color"
+export TERM="screen-256color"
 export PATH="$PATH:$HOME/.script/bin/"
 export PS1="${C32}|(${C37}\u${C32})-(${C37}\j${C32})-(${C37}\w${C32})-\$(git_branch)\n|=> ${C0}"
+export EDITOR=vi
 
-if [ `uname` = "Darwin" ]; then
-    alias syn_kb="sudo /Applications/Synergy.app/Contents/MacOS/synergys -c ~/.air_synergy.config -n yclins_air"
-    alias syn_kb_sta="netstat -atn | grep 24800"
-fi
+[[ -s "$HOME/.tmuxifier/init.sh" ]] && source "$HOME/.tmuxifier/init.sh"
