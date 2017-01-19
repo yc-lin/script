@@ -1,3 +1,38 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'L9'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'mileszs/ack.vim'
+Plugin 'valloric/youcompleteme'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'wellle/visual-split.vim'
+Plugin 'yonchu/accelerated-smooth-scroll'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'rhysd/vim-clang-format'
+Plugin 'nanotech/jellybeans.vim'
+call vundle#end()
+filetype plugin indent on
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim
+set t_Co=256
+set laststatus=2
+
 syntax   on
 filetype on
 filetype plugin on
@@ -5,10 +40,11 @@ filetype indent on
 filetype plugin indent on
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
-colorscheme  darker
-
-nmap <Space>m <Plug>(quickhl-toggle)
-nmap <Space>M <Plug>(quickhl-reset)
+"syntax enable
+"set background=dark
+"colorscheme solarized
+"let g:rehash256 = 1
+colorscheme jellybeans
 
 set cursorline 
 set number 
@@ -24,8 +60,6 @@ set nocompatible
 set noerrorbells
 set novisualbell
 set t_vb=
-set t_Co=256
-set laststatus=2
 
 set encoding=utf-8                                  
 set termencoding=utf-8
@@ -37,25 +71,24 @@ set completeopt=menuone,longest
 set previewheight=12
 set pumheight=15
 set showtabline=2
-set showmatch       " Cursor shows matching ) and }
-set showmode        " Show current mode
-set wildchar=<TAB>  " start wild expansion in the command line using <TAB>
-set wildmenu        " wild char completion menu
+set showmatch
+set showmode
+set wildchar=<TAB>
+set wildmenu
 set wildmode=full
 
-" file setting
 set nobackup
 set nowritebackup
 set noswapfile
 set listchars=tab:>-
 set list
-set clipboard=unnamed   " yank to the system register (*) by default
+set clipboard=unnamed
 
 " TAB setting
 set expandtab        "replace <TAB> with spaces
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
+set softtabstop=2
+set shiftwidth=2
+set tabstop=2
 au FileType Makefile set noexpandtab
 
 " disable sound on errors
@@ -64,20 +97,27 @@ set novisualbell
 set t_vb=
 set tm=500
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHORTCUT
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap ,.  <ESC>:bn<CR>
 nmap .,  <ESC>:bp<CR>
+nmap ..  <ESC>:bd<CR>
+
 nmap <leader>bm <ESC> :MarksBrowser<CR>
-"nmap <leader>bb <ESC> :BufExplorerHorizontalSplit<CR>
-nmap <leader>bt <ESC> :TagbarToggle<CR>
 nmap <leader>bf <ESC> :NERDTreeToggle<CR>
 nmap <leader>q  :q<CR>
 nmap <leader>vu :ReplaceUndo<CR>
 nmap <leader>tn :tabnew<CR>
+
+"nmap <silent><c-p> :Ctrlp<cr><c-l>
+
+" QuickFix
+nmap qn <ESC>:cn<cr>
+nmap qp <ESC>:cp<cr>
+nmap qc <ESC>:ccl<CR>
+nmap qo <ESC>:cw 5<CR>
+
 "nmap <leader>ff :FufFile<CR>
 "nmap <leader>ft :FufTag<CR>
 "nmap <leader>fl :FufLine<CR>
@@ -85,20 +125,60 @@ nmap <leader>tn :tabnew<CR>
 "nmap <leader>fh :FufHelp<CR>
 
 " ,p toggles paste mode
-nmap <leader>p :set paste!<BAR>set paste?<CR>"
+nmap <leader>pp :set paste!<BAR>set paste?<CR>"
 
 " allow multiple indentation/deindentation in visual mode
 vnoremap < <gv
 vnoremap > >gv"
 
-if &diff
-    nmap <leader>j ]c
-    nmap <leader>k [c
-    nmap <leader>l dp
-    nmap <leader>h do
-    nmap <leader>nn :qa<CR>
-endif
-
 " disbale Highlight search
 nnoremap <silent><c-l> :nohl<cr><c-l>
 
+"Ctrlp
+let g:ctrlp_map = '<c-p>' 
+let g:ctrlp_cmd = 'CtrlP ./'
+"unlet g:ctrlp_custom_ignore
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(o|so|bin|ko|order|cmd|symvers)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+"incserach
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+"vim-multi-cursor
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-d>'
+let g:multi_cursor_prev_key='<C-e>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+let g:multi_cursor_start_key='<C-d>'
+let g:multi_cursor_start_word_key='g<C-d>'
+
+"comment
+
+"ycm
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>'] 
+let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>'] 
+let g:ycm_auto_trigger = 1 
+" 最小自动触发补全的字符大小设置为 3 
+" let g:ycm_min_num_of_chars_for_completion = 3 
+" " YCM的previw窗口比较恼人，还是关闭比较好 
+set completeopt-=preview 
+
+"clang-format
+let g:clang_format#command = '/usr/bin/clang-format'
+let g:clang_format#code_style = 'google'
+let g:clang_format#auto_format = 1
