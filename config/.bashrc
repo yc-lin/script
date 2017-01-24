@@ -19,6 +19,10 @@ if [ -f ~/.git-completion ]; then
   . ~/.git-completion
 fi
 
+if [ -f ~/.bashrc.ext ]; then
+    . ~/.bashrc.ext
+fi
+
 export TERM="screen-256color"
 export PATH="$PATH:$HOME/.script/bin/"
 export PS1="${C32}|(${C37}\u${C32})-(${C37}\j${C32})-(${C37}\w${C32})-\$(git_branch)\n|=> ${C0}"

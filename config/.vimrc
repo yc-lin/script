@@ -18,7 +18,15 @@ Plugin 'yonchu/accelerated-smooth-scroll'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'tpope/vim-surround'
+Plugin 'justinmk/vim-sneak'
+Plugin 'qpkorr/vim-bufkill'
+Plugin 'delimitMate.vim'
+"Plugin 'sirver/ultisnips'
 call vundle#end()
+
 filetype plugin indent on
 " Brief help
 " :PluginList       - lists configured plugins
@@ -40,12 +48,8 @@ filetype indent on
 filetype plugin indent on
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
-"syntax enable
-"set background=dark
-"colorscheme solarized
-"let g:rehash256 = 1
 colorscheme jellybeans
-
+let mapleader = "\<Space>"
 set cursorline 
 set number 
 set incsearch
@@ -60,13 +64,10 @@ set nocompatible
 set noerrorbells
 set novisualbell
 set t_vb=
-
 set encoding=utf-8                                  
 set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,big5,latin1
-
-
 set completeopt=menuone,longest
 set previewheight=12
 set pumheight=15
@@ -76,7 +77,6 @@ set showmode
 set wildchar=<TAB>
 set wildmenu
 set wildmode=full
-
 set nobackup
 set nowritebackup
 set noswapfile
@@ -102,11 +102,11 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap ,.  <ESC>:bn<CR>
 nmap .,  <ESC>:bp<CR>
-nmap ..  <ESC>:bd<CR>
+"nmap ..  <ESC>:bd<CR>
+nmap ..  <ESC>:BD<CR>
 
 nmap <leader>bm <ESC> :MarksBrowser<CR>
 nmap <leader>bf <ESC> :NERDTreeToggle<CR>
-nmap <leader>q  :q<CR>
 nmap <leader>vu :ReplaceUndo<CR>
 nmap <leader>tn :tabnew<CR>
 
@@ -139,10 +139,10 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP ./'
 "unlet g:ctrlp_custom_ignore
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(o|so|bin|ko|order|cmd|symvers)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(o|so|bin|ko|order|cmd|symvers)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
 
 "incserach
 map /  <Plug>(incsearch-forward)
@@ -160,25 +160,34 @@ map g# <Plug>(incsearch-nohl-g#)
 
 "vim-multi-cursor
 let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-d>'
-let g:multi_cursor_prev_key='<C-e>'
-let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_next_key='<C-m>'
+let g:multi_cursor_prev_key='<C-n>'
+let g:multi_cursor_skip_key='<C-s>'
 let g:multi_cursor_quit_key='<Esc>'
-let g:multi_cursor_start_key='<C-d>'
-let g:multi_cursor_start_word_key='g<C-d>'
-
-"comment
+let g:multi_cursor_start_key='<C-m>'
+let g:multi_cursor_start_word_key='g<C-m>'
 
 "ycm
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>'] 
-let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>'] 
-let g:ycm_auto_trigger = 1 
-" 最小自动触发补全的字符大小设置为 3 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
 " let g:ycm_min_num_of_chars_for_completion = 3 
-" " YCM的previw窗口比较恼人，还是关闭比较好 
-set completeopt-=preview 
+"set completeopt-=preview 
 
 "clang-format
 let g:clang_format#command = '/usr/bin/clang-format'
 let g:clang_format#code_style = 'google'
 let g:clang_format#auto_format = 1
+
+
+let g:ac_smooth_scroll_du_sleep_time_msec = 3 
+let g:ac_smooth_scroll_fb_sleep_time_msec = 3 
+let g:ac_smooth_scroll_min_limit_msec = 30
+let g:ac_smooth_scroll_max_limit_msec = 100
