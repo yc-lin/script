@@ -37,3 +37,5 @@
 [core]
     editor = vim
 	whitespace = cr-at-eol
+[push]
+	default = matching

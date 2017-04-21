@@ -14,7 +14,6 @@ Plugin 'valloric/youcompleteme'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'wellle/visual-split.vim'
-Plugin 'yonchu/accelerated-smooth-scroll'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'nanotech/jellybeans.vim'
@@ -25,6 +24,8 @@ Plugin 'justinmk/vim-sneak'
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'delimitMate.vim'
 "Plugin 'sirver/ultisnips'
+Plugin 'dyng/ctrlsf.vim'
+Plugin 'maxbrunsfeld/vim-yankstack'
 call vundle#end()
 
 filetype plugin indent on
@@ -135,7 +136,7 @@ vnoremap > >gv"
 nnoremap <silent><c-l> :nohl<cr><c-l>
 
 "Ctrlp
-let g:ctrlp_map = '<c-p>' 
+let g:ctrlp_map = '<C-o>' 
 let g:ctrlp_cmd = 'CtrlP ./'
 "unlet g:ctrlp_custom_ignore
 let g:ctrlp_custom_ignore = {
@@ -159,19 +160,19 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
 "vim-multi-cursor
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-m>'
-let g:multi_cursor_prev_key='<C-n>'
-let g:multi_cursor_skip_key='<C-s>'
-let g:multi_cursor_quit_key='<Esc>'
-let g:multi_cursor_start_key='<C-m>'
-let g:multi_cursor_start_word_key='g<C-m>'
+let g:multi_cursor_use_default_mapping=1
+"let g:multi_cursor_next_key='<C-m>'
+"let g:multi_cursor_prev_key='<C-e>'
+"let g:multi_cursor_skip_key='<C-x>'
+"let g:multi_cursor_quit_key='<Esc>'
+"let g:multi_cursor_start_key='<C-d>'
+"let g:multi_cursor_start_word_key='g<C-d>'
 
 "ycm
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_key_list_select_completion = ['<tab>']
+let g:ycm_key_list_previous_completion = ['<c-i>']
+let g:SuperTabDefaultCompletionType = '<tab>'
 
 " better key bindings for UltiSnipsExpandTrigger
 "let g:UltiSnipsExpandTrigger = "<tab>"
@@ -179,15 +180,21 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 "let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " let g:ycm_min_num_of_chars_for_completion = 3 
-"set completeopt-=preview 
+set completeopt-=preview 
 
 "clang-format
 let g:clang_format#command = '/usr/bin/clang-format'
 let g:clang_format#code_style = 'google'
-let g:clang_format#auto_format = 1
+let g:clang_format#auto_format = 0
 
+"CtrlSF
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+nmap     <C-F>l <Plug>CtrlSFQuickfixPrompt
+vmap     <C-F>l <Plug>CtrlSFQuickfixVwordPath
 
-let g:ac_smooth_scroll_du_sleep_time_msec = 3 
-let g:ac_smooth_scroll_fb_sleep_time_msec = 3 
-let g:ac_smooth_scroll_min_limit_msec = 30
-let g:ac_smooth_scroll_max_limit_msec = 100
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
