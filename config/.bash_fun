@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function git_diff() {
     git diff --no-ext-diff -w "$@" | vim -R -
 }
@@ -5,4 +7,65 @@ function git_diff() {
 function git_branch {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
     echo ${ref#refs/heads/}
+}
+
+function baseff()
+{
+  local fullpath=$*
+  local filename=${fullpath##*/} # remove "/" from the beginning
+  filename=${filename##*./} # remove  ".../" from the beginning
+  # Only the filename without path is needed
+  # filename should be reasonable
+  local cli=`find . \
+    -not -iwholename '*.svn*' \
+    -not -iwholename '*.git*' \
+    -not -iwholename '*.o*' \
+    -not -iwholename '*.hg*'\
+    -type f -path '*'${filename}'*' -print | peco`
+  # convert relative path to full path
+  echo ${cli}
+  #echo $(cd $(dirname $cli); pwd)/$(basename $cli)
+}
+
+function fcd()
+{
+  local cli=`baseff $*`
+  if [[ -z "${cli// }" ]]; then
+    return 0
+  fi
+
+  if [ -d ${cli} ]; then
+    cd ${cli}
+  else
+    dir_name=$(dirname ${cli})
+    cd ${dir_name}
+  fi
+}
+
+function ff()
+{
+  local cli=`baseff $*`
+  if [[ -z "${cli// }" ]]; then
+    return 0
+  fi
+  cat ${cli} | peco
+}
+
+function fvi()
+{
+  local cli=`baseff $*`
+  if [[ -z "${cli// }" ]]; then
+    return 0
+  fi
+  vim ${cli}
+
+}
+
+function fe()
+{
+  local cli=`baseff $*`
+  if [[ -z "${cli// }" ]]; then
+    return 0
+  fi
+  emacsw ${cli}
 }
