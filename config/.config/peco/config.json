@@ -1,0 +1,8 @@
+{
+  "Keymap" : {
+    "Esc": "peco.DeleteAll",
+    "C-v": "peco.ToggleSelectionAndSelectNext",
+    "M-v": "peco.ToggleRangeMode",
+    "C-a": "peco.SelectAll"
+  }
+}

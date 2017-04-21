@@ -6,26 +6,13 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'L9'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mileszs/ack.vim'
-Plugin 'valloric/youcompleteme'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'wellle/visual-split.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'rhysd/vim-clang-format'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'tpope/vim-surround'
-Plugin 'justinmk/vim-sneak'
-Plugin 'qpkorr/vim-bufkill'
-Plugin 'delimitMate.vim'
-"Plugin 'sirver/ultisnips'
-Plugin 'dyng/ctrlsf.vim'
-Plugin 'maxbrunsfeld/vim-yankstack'
 call vundle#end()
 
 filetype plugin indent on
@@ -167,34 +154,3 @@ let g:multi_cursor_use_default_mapping=1
 "let g:multi_cursor_quit_key='<Esc>'
 "let g:multi_cursor_start_key='<C-d>'
 "let g:multi_cursor_start_word_key='g<C-d>'
-
-"ycm
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<tab>']
-let g:ycm_key_list_previous_completion = ['<c-i>']
-let g:SuperTabDefaultCompletionType = '<tab>'
-
-" better key bindings for UltiSnipsExpandTrigger
-"let g:UltiSnipsExpandTrigger = "<tab>"
-"let g:UltiSnipsJumpForwardTrigger = "<tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" let g:ycm_min_num_of_chars_for_completion = 3 
-set completeopt-=preview 
-
-"clang-format
-let g:clang_format#command = '/usr/bin/clang-format'
-let g:clang_format#code_style = 'google'
-let g:clang_format#auto_format = 0
-
-"CtrlSF
-nmap     <C-F>f <Plug>CtrlSFPrompt
-vmap     <C-F>f <Plug>CtrlSFVwordPath
-nmap     <C-F>p <Plug>CtrlSFPwordPath
-nnoremap <C-F>t :CtrlSFToggle<CR>
-inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-nmap     <C-F>l <Plug>CtrlSFQuickfixPrompt
-vmap     <C-F>l <Plug>CtrlSFQuickfixVwordPath
-
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste

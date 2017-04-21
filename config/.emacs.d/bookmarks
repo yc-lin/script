@@ -1,0 +1,40 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("RTags_6"
+ (filename . "~/git/l_uboot_omap_code_coverage/cpu/omap4/omap4430_mmc_common1.c")
+ (front-context-string . "SDHC_Get_EXT_CSD")
+ (rear-context-string . " extCSD;\n\n	if (!")
+ (position . 270217))
+("RTags_5"
+ (filename . "~/git/l_uboot_omap_code_coverage/cpu/omap4/omap4430_mmc_coverage_line2.c")
+ (front-context-string . "SDHC_Get_EXT_CSD")
+ (rear-context-string . ");\n        if (!")
+ (position . 28960))
+("RTags_4"
+ (filename . "~/git/l_uboot_omap_code_coverage/cpu/omap4/omap4430_mmc_coverage_line2.c")
+ (front-context-string . "SDHC_Get_EXT_CSD")
+ (rear-context-string . ";\n\n        if (!")
+ (position . 26220))
+("RTags_3"
+ (filename . "~/git/l_uboot_omap_code_coverage/cpu/omap4/omap4430_mmc_coverage_line2.c")
+ (front-context-string . "SDHC_Get_EXT_CSD")
+ (rear-context-string . ");\n        if (!")
+ (position . 22370))
+("RTags_2"
+ (filename . "~/git/l_uboot_omap_code_coverage/cpu/omap4/omap4430_mmc_coverage_line2.c")
+ (front-context-string . "SDHC_Get_EXT_CSD")
+ (rear-context-string . ";\n\n        if (!")
+ (position . 21302))
+("RTags_1"
+ (filename . "~/git/l_uboot_omap_code_coverage/cpu/omap4/omap4430_mmc_coverage_line2.c")
+ (front-context-string . "SDHC_Get_EXT_CSD")
+ (rear-context-string . "}\n\n        if (!")
+ (position . 3807))
+("RTags_0"
+ (filename . "~/git/l_uboot_omap_code_coverage/cpu/omap4/omap4430_mmc_coverage_line2.c")
+ (front-context-string . "SDHC_Get_EXT_CSD")
+ (rear-context-string . "_on);\n\n    if (!")
+ (position . 1993))
+)

@@ -27,8 +27,15 @@ ln -s ${HOME}/.script/config/.gitconfig ${HOME}/.gitconfig
 if [ ! -d ${HOME}/.cgdb ]; then
     mkdir ${HOME}/.cgdb
 fi
-
 ln -s ${HOME}/.script/config/cgdbrc ${HOME}/.cgdb/cgdbrc
+
+if [ ! -d ${HOME}/.config/peco ]; then
+    mkdir ${HOME}/.config/peco
+fi
+
+ln -s ${HOME}/.script/config/.config/peco/config.json ${HOME}/.config/peco/config.json
+
+ln -s ${HOME}/.script/.emacs.d ${HOME}/.emacs.d
 
 CreateBackUpFile ".gdbinit"
 ln -s .script/config/.gdbinit ${HOME}/.gdbinit
