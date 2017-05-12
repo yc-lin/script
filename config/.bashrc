@@ -31,3 +31,5 @@ export EDITOR=vim
 [[ -s "$HOME/.tmuxifier/init.sh" ]] && source "$HOME/.tmuxifier/init.sh"
 
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

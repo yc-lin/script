@@ -1,14 +1,19 @@
 (require 'package)
 (package-initialize)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" ."http://melpa.org/packages/")
+             t)
+(add-to-list 'package-archives
+             '("melpa-stable" ."http://melpa-stable.milkbox.net/packages/")
+             t)
 (add-to-list 'load-path "~/.emacs.d/pkg")
 
 ;;------------------------------------------------------------------------------
 ;; custom Script
-(setq my-skippable-buffers '("*Messages*" "*scratch*" "*Help*" "*Completions*" "*helm-ag*" "*helm*"
-                             "*helm buffers*" "*helm find" "*helm find files*" "*Buffer List*"
-                             "*Backtrace*" "*Compile-Log*" "*GNU Emacs*"))
+(setq my-skippable-buffers '("*Messages*" "*scratch*" "*Help*" "*Completions*"
+                             "*helm-ag*" "*helm*" "*helm buffers*" "*helm find"
+                             "*helm find files*" "*Buffer List*" "*Backtrace*"
+                             "*Compile-Log*" "*GNU Emacs*"))
 
 (defun my-change-buffer (change-buffer)
   "Call CHANGE-BUFFER until current buffer is not in `my-skippable-buffers'."
@@ -47,20 +52,26 @@
     (set-window-buffer other this-buffer)
     (set-window-buffer this other-buffer)))
 
-(defun edit-init-file()
+(defun edit-init-file ()
   (interactive)
   (find-file user-init-file))
 
-(setq hippie-expand-try-function-list '(try-expand-debbrev
-                                        try-expand-debbrev-all-buffers
-                                        try-expand-debbrev-from-kill
-                                        try-complete-file-name-partially
-                                        try-complete-file-name
-                                        try-expand-all-abbrevs
-                                        try-expand-list
-                                        try-expand-line
-                                        try-complete-lisp-symbol-partially
-                                        try-complete-lisp-symbol))
+(setq hippie-expand-try-function-list '(try-expand-debbrev try-expand-debbrev-all-buffers
+                                                           try-expand-debbrev-from-kill try-complete-file-name-partially
+                                                           try-complete-file-name try-expand-all-abbrevs
+                                                           try-expand-list try-expand-line try-complete-lisp-symbol-partially
+                                                           try-complete-lisp-symbol))
+
+;; (defface font-lock-func-face
+;;   '((nil (:foreground "#00ffd7" :weight bold))
+;;     (t (:bold t :italic t)))
+;;   "Font Lock mode face used for function calls."
+;;   :group 'font-lock-highlighting-faces)
+
+;; (font-lock-add-keywords
+;;    'common-lisp-mode
+;;    '(("(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>"
+;;           1 'font-lock-func-face)))
 
 (defvar yc-a 1 "Initial setting for the `a` global variable.")
 
@@ -73,7 +84,7 @@
     (setq yc-a 2))
    ((= yc-a 2)
     (message "false")
-    (setq yc-a 1)) ) )
+    (setq yc-a 1))))
 
 ;;------------------------------------------------------------------------------
 ;; Configuration
@@ -86,26 +97,21 @@
 (setq-default indent-tabs-mode nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-auto-revert-mode t)
-(global-hl-line-mode t)
-(global-set-key [(control ?h)] 'delete-backward-char)
-(when
-    (featurep 'menu-bar)
+(global-set-key [(control ?h)]
+                'delete-backward-char)
+(when (featurep 'menu-bar)
   (menu-bar-mode -1))
-(when
-    (featurep 'tool-bar)
+(when (featurep 'tool-bar)
   (menu-bar-mode -1))
-(when
-    (featurep 'scroll-bar)
+(when (featurep 'scroll-bar)
   (menu-bar-mode -1))
 ;;(global-linum-mode 1)
 ;;(setq linum-format "%d ")
-(font-lock-add-keywords
- 'c-mode
- '(("\\<\\(\\sw+\\) ?(" 1 'font-lock-function-name-face)))
+(font-lock-add-keywords 'c-mode
+                        '(("\\<\\(\\sw+\\) ?(" 1 'font-lock-function-name-face)))
 
-(font-lock-add-keywords
- 'c++-mode
- '(("\\[=+><?:\\]" 1 'font-lock-function-name-face)))
+(font-lock-add-keywords 'c++-mode
+                        '(("\\[=+><?:\\]" 1 'font-lock-function-name-face)))
 
 
 ;;(add-hook 'prog-mode-hook #'whitespace-mode)
@@ -113,33 +119,56 @@
 
 (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 
-(add-hook 'emacs-lisp-mode-hook (lambda()
-                                  (global-set-key (kbd "M-7") 'elisp-format-buffer)))
+(add-hook 'emacs-lisp-mode-hook 'highlight-defined-mode)
 
-(add-hook 'c++-mode-hook (lambda()
-                           (global-set-key (kbd "M-7") 'clang-format-buffer)))
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (global-set-key (kbd "M-7")
+                            'srefactor-lisp-format-buffer)))
+(add-hook 'lisp-mode-hook 'highlight-defined-mode)
+(add-hook 'lisp-mode
+          (lambda ()
+            (global-set-key (kbd "M-7")
+                            'srefactor-lisp-format-buffer)))
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (global-set-key (kbd "M-7")
+                            'clang-format-buffer)))
 
-(add-hook 'c-mode-hook (lambda()
-                         (global-set-key (kbd "M-7") 'clang-format-buffer)))
+(add-hook 'c-mode-hook
+          (lambda ()
+            (global-set-key (kbd "M-7")
+                            'clang-format-buffer)))
 
-(add-hook 'c-mode-common-hook (lambda ()
-                                (which-function-mode t)))
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (which-function-mode t)))
 
-(add-hook 'c++-mode-common-hook (lambda ()
-                                  (which-function-mode t)))
+(add-hook 'c++-mode-common-hook
+          (lambda ()
+            (which-function-mode t)))
 
-;;(show-paren-mode t)
-;;(setq show-paren-style 'expression)
 
 (setq kill-buffer-query-functions (remq 'process-kill-buffer-query-function
                                         kill-buffer-query-functions))
-(put 'dired-find-alternate-file 'disabled nil)
+(put 'dired-find-alternate-file 'disabled
+     nil)
 (with-eval-after-load 'dired
-      (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
 
 ;;------------------------------------------------------------------------------
 ;; Packages
+;;
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(require 'slime)
+(require 'slime-autoloads)
+(setq slime-contribs '(slime-scratch slime-editing-commands slime-cl-indent))
+(slime-setup '(slime-fancy slime-company slime-cl-indent))
+
+(require 'srefactor)
+(require 'srefactor-lisp)
+
 (require 'tramp)
 (setq tramp-verbose 2)
 
@@ -152,10 +181,11 @@
 (require 'airline-themes)
 (load-theme 'airline-molokai t)
 
-(setq airline-utf-glyph-separator-left      #xe0b0 airline-utf-glyph-separator-right     #xe0b2
-      airline-utf-glyph-subseparator-left   #xe0b1 airline-utf-glyph-subseparator-right  #xe0b3
-      airline-utf-glyph-branch              #xe0a0 airline-utf-glyph-readonly            #xe0a2
-      airline-utf-glyph-linenumber          #xe0a1)
+(setq airline-utf-glyph-separator-left #xe0b0
+      airline-utf-glyph-separator-right #xe0b2 airline-utf-glyph-subseparator-left
+      #xe0b1 airline-utf-glyph-subseparator-right
+      #xe0b3 airline-utf-glyph-branch #xe0a0 airline-utf-glyph-readonly
+      #xe0a2 airline-utf-glyph-linenumber #xe0a1)
 
 
 (require 'highlight-numbers)
@@ -163,6 +193,14 @@
 
 (require 'highlight-operators)
 (add-hook 'prog-mode-hook 'highlight-operators-mode)
+
+(global-hl-line-mode t)
+(set-face-background hl-line-face "#303030")
+
+(require 'paren)
+(show-paren-mode t)
+(setq show-paren-delay 0)
+(set-face-foreground 'show-paren-match "#00aF00")
 
 (add-hook 'prog-mode-hook 'whitespace-cleanup-mode)
 ;; (require 'highlight-parentheses)
@@ -190,14 +228,18 @@
   (global-evil-mc-mode 1)
   (defalias #'forward-evil-word #'forward-evil-symbol)
   (define-key evil-motion-state-map "\\" 'helm-swoop)
-  (evil-define-motion evil-yc-jump-down()
+  (evil-define-motion evil-yc-jump-down
+    ()
     :type line
     :jump t
-    "Evil motion down 4 line. Count has no effect." (forward-line 4))
-  (evil-define-motion evil-yc-jump-up()
+    "Evil motion down 4 line. Count has no effect."
+    (forward-line 4))
+  (evil-define-motion evil-yc-jump-up
+    ()
     :type line
     :jump t
-    "Evil motion up 4 line. Count has no effect." (forward-line -4))
+    "Evil motion up 4 line. Count has no effect."
+    (forward-line -4))
   ;; example mapping
   (define-key evil-motion-state-map (kbd "[") #'evil-yc-jump-up)
   (define-key evil-motion-state-map (kbd "]") #'evil-yc-jump-down))
@@ -250,55 +292,79 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; company-irony
-(eval-after-load 'company '(add-to-list 'company-backends 'company-irony))
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
 (add-hook 'c-mode-hook 'company-mode)
 (add-hook 'c++-mode-hook 'company-mode)
 
 (require 'company-irony-c-headers)
-(eval-after-load 'company '(add-to-list 'company-backends '(company-irony-c-headers company-irony)))
-(eval-after-load 'flycheck '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+(eval-after-load 'company
+  '(add-to-list 'company-backends
+                '(company-irony-c-headers company-irony)))
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 ;;etags
 (require 'helm-etags-plus)
 (setq tags-table-list '("./TAGS"))
 
-(autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on 'ctags-auto-update-mode'." t)
-(add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
-(add-hook 'c++-mode-common-hook  'turn-on-ctags-auto-update-mode)
+(autoload 'turn-on-ctags-auto-update-mode
+  "ctags-update" "turn on 'ctags-auto-update-mode'."
+  t)
+(add-hook 'c-mode-common-hook 'turn-on-ctags-auto-update-mode)
+(add-hook 'c++-mode-common-hook 'turn-on-ctags-auto-update-mode)
 
 ;;------------------------------------------------------------------------------
 ;;key binding
-(global-set-key [remap next-buffer] 'my-next-buffer)
-(global-set-key [remap previous-buffer] 'my-previous-buffer)
+(global-set-key [remap next-buffer]
+                'my-next-buffer)
+(global-set-key [remap previous-buffer]
+                'my-previous-buffer)
 
 (evil-leader/set-leader "<SPC>")
-(evil-leader/set-key "f" 'helm-find "F" 'helm-find-files "a" 'helm-do-ag "A"
-  'helm-do-ag-project-root "@" 'helm-imenu "t" 'helm-etags-plus-select "l" 'helm-buffers-list "k"
-  'kill-buffer "w" 'ace-window "ci" 'evilnc-comment-or-uncomment-lines "cc"
-  'evilnc-copy-and-comment-lines "cp" 'evilnc-comment-or-uncomment-paragraphs "cr"
-  'comment-or-uncomment-region "cv" 'evilnc-toggle-invert-comment-line-by-line)
+(evil-leader/set-key "f" 'helm-find "F" 'helm-find-files
+  "a" 'helm-do-ag "A" 'helm-do-ag-project-root
+  "@" 'helm-imenu "t" 'helm-etags-plus-select
+  "l" 'helm-buffers-list "k" 'kill-buffer "w"
+  'ace-window "ci" 'evilnc-comment-or-uncomment-lines
+  "cc" 'evilnc-copy-and-comment-lines "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region "cv" 'evilnc-toggle-invert-comment-line-by-line
+  "ss" 'slime-selector)
 
 
-(global-set-key (kbd "M-1") 'ace-jump-buffer)
-(global-set-key (kbd "M-2") 'next-buffer)
-(global-set-key (kbd "M-3") 'next-multiframe-window)
-(global-set-key (kbd "M-4") 'swap-buffers-in-windows)
-(global-set-key (kbd "M-8") 'er/expand-region)
-(global-set-key (kbd "M-]") 'helm-etags-plus-history-go-back)
-(global-set-key (kbd "M-=") 'enlarge-window-horizontally)
-(global-set-key (kbd "M--") 'shrink-window-horizontally)
-(global-set-key (kbd "M-0") 'enlarge-window)
-(global-set-key (kbd "M-9") 'shrink-window)
+(global-set-key (kbd "M-1")
+                'ace-jump-buffer)
+(global-set-key (kbd "M-2")
+                'next-buffer)
+(global-set-key (kbd "M-3")
+                'next-multiframe-window)
+(global-set-key (kbd "M-4")
+                'swap-buffers-in-windows)
+(global-set-key (kbd "M-8")
+                'er/expand-region)
+(global-set-key (kbd "M-]")
+                'helm-etags-plus-history-go-back)
+(global-set-key (kbd "M-=")
+                'enlarge-window-horizontally)
+(global-set-key (kbd "M--")
+                'shrink-window-horizontally)
+(global-set-key (kbd "M-0")
+                'enlarge-window)
+(global-set-key (kbd "M-9")
+                'shrink-window)
 
-(global-set-key (kbd "M-x") 'helm-smex)
+(global-set-key (kbd "M-x")
+                'helm-smex)
+(global-set-key (kbd "M-s")
+                'slime-selector)
 ;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
 ;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 (require 'evil-leader)
 (global-evil-leader-mode)
-(evil-leader/set-key "ci" 'evilnc-comment-or-uncomment-lines "cc" 'evilnc-copy-and-comment-lines
-  "cp" 'evilnc-comment-or-uncomment-paragraphs "cr" 'comment-or-uncomment-region "cv"
-  'evilnc-toggle-invert-comment-line-by-line)
+(evil-leader/set-key "ci" 'evilnc-comment-or-uncomment-lines
+  "cc" 'evilnc-copy-and-comment-lines "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region "cv" 'evilnc-toggle-invert-comment-line-by-line)
 
 ;;------------------------------------------------------------------------------
 (custom-set-faces
@@ -333,18 +399,18 @@
  '(highlight-changes-colors (quote ("#ff8eff" "#ab7eff")))
  '(highlight-tail-colors
    (quote
-    (("#424748" . 0)
-     ("#63de5d" . 20)
-     ("#4BBEAE" . 30)
-     ("#1DB4D0" . 50)
-     ("#9A8F21" . 60)
-     ("#A75B00" . 70)
-     ("#F309DF" . 85)
-     ("#424748" . 100))))
+    (("#424748" 0.0)
+     ("#63de5d" 0.2)
+     ("#4BBEAE" 0.3)
+     ("#1DB4D0" 0.5)
+     ("#9A8F21" 0.6)
+     ("#A75B00" 0.7)
+     ("#F309DF" 0.85)
+     ("#424748" 0.1))))
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
    (quote
-    (use-package evil-nerd-commenter helm-smex smex helm-swoop elisp-format ctags-update helm-etags-plus whitespace-cleanup-mode rainbow-delimiters iedit highlight-symbol highlight-quoted highlight-parentheses highlight-operators highlight-numbers helm-ls-git helm-ag grizzl git-gutter git-gutter+ flycheck-irony expand-region evil-visualstar evil-smartparens evil-mc evil-leader evil-anzu darkokai-theme company-irony-c-headers company-irony clang-format autopair airline-themes ace-window ace-jump-buffer)))
+    (highlight-defined srefactor slime-company slime-theme slime use-package evil-nerd-commenter helm-smex smex helm-swoop elisp-format ctags-update helm-etags-plus whitespace-cleanup-mode rainbow-delimiters iedit highlight-symbol highlight-quoted highlight-parentheses highlight-operators highlight-numbers helm-ls-git helm-ag grizzl git-gutter git-gutter+ flycheck-irony expand-region evil-visualstar evil-smartparens evil-mc evil-leader evil-anzu darkokai-theme company-irony-c-headers company-irony clang-format autopair airline-themes ace-window ace-jump-buffer)))
  '(pos-tip-background-color "#E6DB74")
  '(pos-tip-foreground-color "#242728")
  '(vc-annotate-background nil)
