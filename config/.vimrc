@@ -1,33 +1,27 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'L9'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'mileszs/ack.vim'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-surround'
-call vundle#end()
-
-filetype plugin indent on
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim
-set t_Co=256
-set laststatus=2
+call plug#begin('~/.vim/plugged')
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/vimproc'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neocomplete'
+Plug 'tacroe/unite-mark'
+Plug 'tsukkee/unite-tag'
+Plug 'airblade/vim-gitgutter'
+Plug 'nanotech/jellybeans.vim'
+Plug 'tpope/vim-surround'
+Plug 'haya14busa/incsearch.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
+Plug 'vim-syntastic/syntastic'
+Plug 'rafi/vim-tinyline'
+Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-multiple-cursor'
+Plug 'rhysd/vim-clang-format'
+Plug 'osyo-manga/unite-quickfix'
+Plug 'Shougo/vimshell'
+call plug#end()
 
 syntax   on
 filetype on
@@ -35,9 +29,13 @@ filetype plugin on
 filetype indent on
 filetype plugin indent on
 autocmd! bufwritepost .vimrc source ~/.vimrc
+set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim
 
 colorscheme jellybeans
 let mapleader = "\<Space>"
+set nocompatible              " be iMproved, required
+set t_Co=256
+set laststatus=2
 set cursorline 
 set number 
 set incsearch
@@ -73,7 +71,7 @@ set list
 set clipboard=unnamed
 
 " TAB setting
-set expandtab        "replace <TAB> with spaces
+set expandtab
 set softtabstop=2
 set shiftwidth=2
 set tabstop=2
@@ -88,30 +86,30 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHORTCUT
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap ,.  <ESC>:bn<CR>
-nmap .,  <ESC>:bp<CR>
-"nmap ..  <ESC>:bd<CR>
-nmap ..  <ESC>:BD<CR>
+nmap <leader>1 :bn<CR>
+nmap <leader>2 :Unite buffer<CR>
+nmap <leader>q :q<CR>
+nmap <leader>3 :wincmd w<CR>
+nmap <leader>4 :wincmd o<CR>
+nmap <leader>wv :vsplit<CR>
+nmap <leader>wv :vsplit<CR>
+nmap <leader>e :call ToggleSyntasticErrors()<CR>
+nmap <leader>7 :ClangFormat<CR>
+nmap <leader>8 :ccl<CR>
+nmap <leader>9 :cp<CR>
+nmap <leader>0 :cn<CR>
+"nmap qo <ESC>:cw 5<CR>
 
-nmap <leader>bm <ESC> :MarksBrowser<CR>
-nmap <leader>bf <ESC> :NERDTreeToggle<CR>
-nmap <leader>vu :ReplaceUndo<CR>
-nmap <leader>tn :tabnew<CR>
+nmap <leader>uf :Unite neomru/file <CR>
+nmap <leader>uF :Unite -buffer-name=ufiles -start-insert file_rec<CR>
+nmap <leader>ug :Unite -buffer-name=ugrep -start-insert grep:. <-CR>
+nmap <leader>um :Unite Mark<CR>
 
-"nmap <silent><c-p> :Ctrlp<cr><c-l>
-
-" QuickFix
-nmap qn <ESC>:cn<cr>
-nmap qp <ESC>:cp<cr>
-nmap qc <ESC>:ccl<CR>
-nmap qo <ESC>:cw 5<CR>
-
-"nmap <leader>ff :FufFile<CR>
-"nmap <leader>ft :FufTag<CR>
-"nmap <leader>fl :FufLine<CR>
-"nmap <leader>fc :FufChangeList<CR>
-"nmap <leader>fh :FufHelp<CR>
-
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
 " ,p toggles paste mode
 nmap <leader>pp :set paste!<BAR>set paste?<CR>"
 
@@ -122,15 +120,13 @@ vnoremap > >gv"
 " disbale Highlight search
 nnoremap <silent><c-l> :nohl<cr><c-l>
 
-"Ctrlp
-let g:ctrlp_map = '<C-o>' 
-let g:ctrlp_cmd = 'CtrlP ./'
-"unlet g:ctrlp_custom_ignore
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-      \ 'file': '\v\.(o|so|bin|ko|order|cmd|symvers)$',
-      \ 'link': 'some_bad_symbolic_links',
-      \ }
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 "incserach
 map /  <Plug>(incsearch-forward)
@@ -154,3 +150,65 @@ let g:multi_cursor_use_default_mapping=1
 "let g:multi_cursor_quit_key='<Esc>'
 "let g:multi_cursor_start_key='<C-d>'
 "let g:multi_cursor_start_word_key='g<C-d>'
+"
+
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {'default' : ''}
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
