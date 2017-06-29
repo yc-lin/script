@@ -12,15 +12,18 @@ Plug 'airblade/vim-gitgutter'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tpope/vim-surround'
 Plug 'haya14busa/incsearch.vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'rafi/vim-tinyline'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursor'
 Plug 'rhysd/vim-clang-format'
 Plug 'osyo-manga/unite-quickfix'
 Plug 'Shougo/vimshell'
+"Plug 'terryma/vim-multiple-cursors'
+
 call plug#end()
 
 syntax   on
