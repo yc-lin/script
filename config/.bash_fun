@@ -23,32 +23,64 @@ function baseff()
     -not -iwholename '*.hg*'\
     -type f -path '*'${filename}'*' -print | peco`
   # convert relative path to full path
-  echo ${cli}
+  #echo ${cli}
   #echo $(cd $(dirname $cli); pwd)/$(basename $cli)
-}
-
-function fcd()
-{
-  local cli=`baseff $*`
-  if [[ -z "${cli// }" ]]; then
-    return 0
-  fi
-
-  if [ -d ${cli} ]; then
-    cd ${cli}
-  else
-    dir_name=$(dirname ${cli})
-    cd ${dir_name}
-  fi
+  
+  local ff_full=""
+  local ifs_bak=${IFS}
+  ffl=""
+  ffs=""
+  ffc=0
+  IFS=$'\n'
+  for ff in ${cli}; do
+    ff_full="$(cd $(dirname ${ff}); pwd)/$(basename ${ff})"
+    ffl+="${ff_full} "
+    ffs+="${ff_full}\\n"
+    ffc=$((${ffc} + 1))
+  done
+  IFS=${ifs_bak}
+  export FFS="${ffs}" 
+  export FFL="${ffl}" 
+  export FFC="${ffc}" 
+  echo -e "${ffs}"
 }
 
 function ff()
 {
-  local cli=`baseff $*`
-  if [[ -z "${cli// }" ]]; then
+  baseff
+}
+
+function ffc()
+{
+  ff
+  if [[ -z "${FFL// }" ]]; then
+    export FFCS=""
+    export FFCL=""
     return 0
   fi
-  cat ${cli} | peco
+
+  local ffl=""
+  if [ $FFC -eq 1 ]; then 
+    ffl=${FFL//[[:space:]]/}
+  else
+    ffl=${FFL}
+  fi
+
+  local cli=$(cat ${ffl} | peco)
+
+  local ifs_bak=${IFS}
+  ffcl=""
+  ffcs=""
+  IFS=$'\n'
+  for ff in ${cli}; do
+    ff_full="$(cd $(dirname ${ff}); pwd)/$(basename ${ff})"
+    ffcl+="${ff} "
+    ffcs+="${ff}\\n"
+  done
+  IFS=${ifs_bak}
+  export FFCS="${ffcs}" 
+  export FFCL="${ffcl}" 
+  echo -e "${ffcs}"
 }
 
 function fvi()
