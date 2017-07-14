@@ -1,5 +1,5 @@
 --langdef=systemverilog
---langmap=systemverilog:.sv.svh.svi.v
+--langmap=systemverilog:.sv.svh.svi.svip.v.vi.inc
 --regex-systemverilog=/^[ \t]*(virtual)?[ \t]*class[ \t]*([a-zA-Z_0-9]+)/\2/c,class/
 --regex-systemverilog=/^[ \t]*(virtual)?[ \t]*task[ \t]*.*::([a-zA-Z_0-9]+)[\t]*[(;]/\2/t,task/
 --regex-systemverilog=/^[ \t]*(virtual)?[ \t]*function[ \t]*.*::([a-zA-Z_0-9]+)[ \t]*[(;]/\2/f,function/

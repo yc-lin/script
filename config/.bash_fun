@@ -1,5 +1,16 @@
 #!/bin/bash
 
+function sss()
+{
+  local file="env.sh"
+  if [ $# -ne 0 ]; then
+    file=$1
+  fi
+
+  echo "source : $(pwd)/${file}"
+  source $(pwd)/${file}
+}
+
 function git_diff() {
     git diff --no-ext-diff -w "$@" | vim -R -
 }
