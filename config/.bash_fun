@@ -1,5 +1,20 @@
 #!/bin/bash
 
+function ttyecho_target()
+{
+  export TTYECHO_TARGET=$1
+}
+
+function ts()
+{
+  ttyecho -n /dev/pts/${TTYECHO_TARGET} $*
+}
+
+function get_pts_num()
+{
+  tty | awk -F "/" '{print $4}'
+}
+
 function sss()
 {
   local file="env.sh"

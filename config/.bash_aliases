@@ -2,6 +2,7 @@
 alias grep='grep --color'
 alias fgrep='fgrep --color'
 alias egrep='egrep --color'
+alias ccat='highlight -O xterm256 -s molokai'
 
 
 if [ `uname` == "Darwin" ]; then
