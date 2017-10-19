@@ -125,5 +125,23 @@ function fe()
   if [[ -z "${cli// }" ]]; then
     return 0
   fi
-  emacsw ${cli}
+  ee ${cli}
+}
+
+function update_scd_bookmark_var()
+{
+    local scd_boorkmark=~/.scd_bookmark
+
+    if ! [ -e ${scd_boorkmark} ]; then
+        exit 0;
+    fi
+
+    local recorders=$(wc -l ${scd_boorkmark} | awk '{print $1}')
+    recorders=$((recorders - 1))
+    echo $recorders 
+    for idx in $(seq 1 ${recorders}); do
+        local bk=$(sed -n "${idx},${idx}p" $scd_boorkmark)
+        echo $bk
+        export CSB${idx}=${bk}
+    done
 }
