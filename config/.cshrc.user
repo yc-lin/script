@@ -1,0 +1,6 @@
+
+setenv PATH $PATH\:/home/yclin/.script/bin
+setenv git_br_cmd '/home/yclin/repo/bash/git_br.sh'
+alias setprompt 'set prompt = "%{^[[32m%}%j%{^[[37m%} %/%{^[[32m%}|%{^[[37m%} %{^[[33m%}`$git_br_cmd`%{^[[37m%} %{^[[32m%}>%{^[[37m%} "'
+alias cd 'chdir \!* && setprompt'
+setprompt
