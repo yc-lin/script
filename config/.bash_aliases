@@ -16,7 +16,6 @@ fi
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
-alias diff=colordiff
 alias df='df -h'
 alias du='du -h'
 alias less='less -r'                          # raw control characters

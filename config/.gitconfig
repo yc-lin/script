@@ -39,3 +39,6 @@
 	whitespace = cr-at-eol
 [push]
 	default = matching
+[user]
+	name = yclin
+	email = yclin@ubuntu
