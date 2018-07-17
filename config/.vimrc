@@ -7,19 +7,15 @@ Plug 'tacroe/unite-mark'
 Plug 'tsukkee/unite-tag'
 Plug 'airblade/vim-gitgutter'
 Plug 'nanotech/jellybeans.vim'
-Plug 'tpope/vim-surround'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-syntastic/syntastic'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'rafi/vim-tinyline'
-Plug 'terryma/vim-expand-region'
-Plug 'rhysd/vim-clang-format'
+"Plug 'rafi/vim-tinyline'
+"Plug 'terryma/vim-expand-region'
 Plug 'osyo-manga/unite-quickfix'
 Plug 'Shougo/vimshell'
-"Plug 'terryma/vim-multiple-cursors'
-
 call plug#end()
 
 syntax   on
@@ -67,6 +63,10 @@ set noswapfile
 set listchars=tab:>-
 set list
 set clipboard=unnamed
+set guioptions-=m
+set guioptions-=T
+set guifont=Fira\ Mono\ for\ Powerline\ 9
+
 
 " TAB setting
 set expandtab
@@ -130,6 +130,16 @@ nnoremap <silent><c-l> :nohl<cr><c-l>
 
 
 let g:airline_poweline_fonts = 1
+"let g:airline_left_sep='»'
+let g:airline_theme='base16' 
+" enable tabline
+let g:airline#extensions#tabline#enabled = 1
+" set left separator
+let g:airline#extensions#tabline#left_sep = ' '
+" set left separator which are not editting
+let g:airline#extensions#tabline#left_alt_sep = '|'
+" show buffer number
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 
 
