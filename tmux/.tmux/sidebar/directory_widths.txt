@@ -1,0 +1,5 @@
+/home/yclin/work	40
+/home/ess_develop_fm2/work/yclin/ess_thunderbird_fm/verification	40
+/home/ess_develop_fm2/work/yclin/ess_thunderbird_fm/verification/coverage	40
+/home/ess_develop_fm2/work/yclin/ess_thunderbird_fm/verification/coverage	40
+/home/essdv_scratch_fm2/yclin/fm2/ess_thunderbird_fm/sim/logs	40

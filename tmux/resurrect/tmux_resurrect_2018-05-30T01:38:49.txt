@@ -1,0 +1,26 @@
+pane	0	0	:work	1	:*	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_integration_triggers_cxdt	1	vim	:/pga/mcad/install/vim/vim8.069/linux/bin/vim /home/yclin/.tmux.conf
+pane	0	1	:cti_0_cpu4-7	0	:-	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_0_CPU4_CPU7	1	perl	:/pga/mcad/install/activestate/perl5.12/linux/RH4/bin/perl /home/ess_develop_fm2/work/yclin/fm2.work/common/scripts/run.pl -s soc_base_test -asic -simdir fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_0_CPU4_CPU7 -clean -fw_flags +fw=fip/tests/cs_integration_triggers, -fwdefine=CXDT_BUILD=1 , -fwdefine=CPU_CONTROL, -fwdefine=TEST_ARC_RTT_CTI_0_CPU4_CPU7 -irun_flags +define+CS_CXDT +USE_ILKN_EPCS=1 +define+ARM_ENV +R5_ENABLE=0 +pfw_flavor=arc
+pane	0	2	:cti_0_cpu8_11	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_0_CPU8_CPU11	1	perl	:/pga/mcad/install/activestate/perl5.12/linux/RH4/bin/perl /home/ess_develop_fm2/work/yclin/fm2.work/common/scripts/run.pl -s soc_base_test -asic -simdir fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_0_CPU8_CPU11 -clean -fw_flags +fw=fip/tests/cs_integration_triggers, -fwdefine=CXDT_BUILD=1 , -fwdefine=CPU_CONTROL, -fwdefine=TEST_ARC_RTT_CTI_0_CPU8_CPU11 -irun_flags +define+CS_CXDT +USE_ILKN_EPCS=1 +define+ARM_ENV +R5_ENABLE=0 +pfw_flavor=arc
+pane	0	3	:dis_cxdt	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_discovery_cxdt	1	perl	:/pga/mcad/install/activestate/perl5.12/linux/RH4/bin/perl /home/ess_develop_fm2/work/yclin/fm2.work/common/scripts/run.pl -s soc_base_test -asic -simdir fip_discovery_cxdt -clean -fw_flags +fw=fip/tests/cs_discovery,            -fwdefine=CXDT_ONLY=1, -fwdefine=ARC_ENABLE=1 -irun_flags +define+CS_CXDT +USE_ILKN_EPCS=1 +define+ARM_ENV +R5_ENABLE=0
+pane	0	4	:dis_cpu	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_discovery	1	perl	:/pga/mcad/install/activestate/perl5.12/linux/RH4/bin/perl /home/ess_develop_fm2/work/yclin/fm2.work/common/scripts/run.pl -s soc_base_test -asic -simdir fip_discovery -clean -fw_flags +fw=fip/tests/cs_discovery, -fwdefine=ARC_ENABLE=1, -fwdefine=USE_CPC_SHARED_RAM -irun_flags +USE_ILKN_EPCS=1 +define+ARM_ENV +R5_ENABLE=1 +pfw_flavor=arc_with_cpc_shared_ram
+vovsh -p vnc -n -f /pga/tools/rtda/2016.09u13/linux64/tcl/vtcl/vnc.tcl -q vncusess run -ep -profile -J nWave -Ir -C ncsub_interactive -- /pga/synopsys/verdi3/M-2017.03/bin/nWave -workMode hardwareDebug
+pane	0	6	:etf	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_0_CPU4_CPU7	1	tcsh	:
+pane	0	7	:cti_10	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim	1	tcsh	:
+pane	0	8	:cti_1	0	:M	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim	1	tcsh	:
+pane	0	9	:cti_11	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim	1	tcsh	:
+pane	0	10	:cti_2	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_2	1	perl	:/pga/mcad/install/activestate/perl5.12/linux/RH4/bin/perl /home/ess_develop_fm2/work/yclin/fm2.work/common/scripts/run.pl -s soc_base_test -asic -simdir fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_2 -run_only -fw_flags +fw=fip/tests/cs_integration_triggers, -fwdefine=CXDT_BUILD=1 , -fwdefine=CPU_CONTROL, -fwdefine=TEST_ARC_RTT_CTI_2 -irun_flags +define+CS_CXDT +USE_ILKN_EPCS=1 +define+ARM_ENV +R5_ENABLE=0 +pfw_flavor=arc
+pane	0	11	:cti_3	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_3	1	perl	:/pga/mcad/install/activestate/perl5.12/linux/RH4/bin/perl /home/ess_develop_fm2/work/yclin/fm2.work/common/scripts/run.pl -s soc_base_test -asic -simdir fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_3 -run_only -fw_flags +fw=fip/tests/cs_integration_triggers, -fwdefine=CXDT_BUILD=1 , -fwdefine=CPU_CONTROL, -fwdefine=TEST_ARC_RTT_CTI_3 -irun_flags +define+CS_CXDT +USE_ILKN_EPCS=1 +define+ARM_ENV +R5_ENABLE=0 +pfw_flavor=arc
+pane	0	12	:cti_4	0	:	0	:/home/essdv_scratch_fm2/yclin/fm2/fm2.work/sim_fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_4	1	perl	:/pga/mcad/install/activestate/perl5.12/linux/RH4/bin/perl /home/ess_develop_fm2/work/yclin/fm2.work/common/scripts/run.pl -s soc_base_test -asic -simdir fip_integration_triggers_cxdt_TEST_ARC_RTT_CTI_4 -run_only -fw_flags +fw=fip/tests/cs_integration_triggers, -fwdefine=CXDT_BUILD=1 , -fwdefine=CPU_CONTROL, -fwdefine=TEST_ARC_RTT_CTI_4 -irun_flags +define+CS_CXDT +USE_ILKN_EPCS=1 +define+ARM_ENV +R5_ENABLE=0 +pfw_flavor=arc
+window	0	0	1	:*	6237,164x55,0,0,18
+window	0	1	0	:-	6230,164x55,0,0,30
+window	0	2	0	:	6231,164x55,0,0,31
+window	0	3	0	:	6232,164x55,0,0,32
+window	0	4	0	:	6233,164x55,0,0,33
+window	0	6	0	:	e233,164x55,0,0,24
+window	0	7	0	:	e234,164x55,0,0,25
+window	0	8	0	:M	e230,164x55,0,0,21
+window	0	9	0	:	e235,164x55,0,0,26
+window	0	10	0	:	e236,164x55,0,0,27
+window	0	11	0	:	e237,164x55,0,0,28
+window	0	12	0	:	e238,164x55,0,0,29
+state	0	
