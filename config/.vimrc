@@ -6,7 +6,8 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 Plug 'Shougo/vimshell'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -26,6 +27,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
+Plug 'morhetz/gruvbox'
+Plug 'philj56/vim-asm-indent'
 call plug#end()
 
 syntax   on
@@ -39,7 +42,9 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 " SystemVerilog
 au BufNewFile,BufRead *.svi,*.sv,*.svh		setf systemverilog
 
-colorscheme jellybeans
+"colorscheme jellybeans
+colorscheme gruvbox
+set background=dark
 let mapleader = "\<Space>"
 set nocompatible              " be iMproved, required
 set t_Co=256
@@ -125,9 +130,11 @@ nnoremap <leader>fc :Files <C-r>=expand("%:h")<CR>/<CR>
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fg :GFiles<CR>
 nnoremap <leader>bl :Buffers<CR>
-nnoremap <leader>a  :Rg "\b<C-R><C-W>\b"<CR>
+nnoremap <leader>a  :Rg <C-R><C-W><CR>
 nnoremap <leader>b\ :Lines<CR>
 nnoremap <leader>s  :Snippets<CR>
+nnoremap <leader>=  :EasyAlign<CR>=<CR>
+xnoremap <leader>=  :EasyAlign<CR>=<CR>
 set wildignore+=*/.git/*,*/tmp/*,*.swp,*.hg/*,*.o,*.bin,*.so
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
@@ -242,3 +249,19 @@ imap <c-x><c-j> <plug>(fzf-complete-file-rg)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 let g:fzf_layout = { 'down': '~25%' }
 
+let g:fzf_colors =
+\ { "fg":      ["fg", "Normal"],
+  \ "bg":      ["bg", "Normal"],
+  \ "hl":      ["fg", "IncSearch"],
+  \ "fg+":     ["fg", "CursorLine", "CursorColumn", "Normal"],
+  \ "bg+":     ["bg", "CursorLine", "CursorColumn"],
+  \ "hl+":     ["fg", "IncSearch"],
+  \ "info":    ["fg", "IncSearch"],
+  \ "border":  ["fg", "Ignore"],
+  \ "prompt":  ["fg", "Comment"],
+  \ "pointer": ["fg", "IncSearch"],
+  \ "marker":  ["fg", "IncSearch"],
+  \ "spinner": ["fg", "IncSearch"],
+  \ "header":  ["fg", "WildMenu"] }
+
+let g:VM_leader = ','
