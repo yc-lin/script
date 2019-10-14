@@ -40,6 +40,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'mtdl9/vim-log-highlighting'
 "Plug 'zxqfl/tabnine-vim'
+"Plug 'xolox/vim-easytags'
 call plug#end()
 
 syntax   on
@@ -52,6 +53,7 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 
 " SystemVerilog
 au BufNewFile,BufRead *.svi,*.sv,*.svh		setf systemverilog
+au FileType systemverilog set tags=~/UVM/uvm_tags
 
 "colorscheme jellybeans
 colorscheme gruvbox
@@ -123,36 +125,42 @@ set tm=500
 "nmap <C+1> :wincmd o<CR>
 "nmap <C+2> :bn<CR>
 "nmap <C+3> :bp<CR>
-"execute "set <M-1>=\e1"
-"execute "set <M-2>=\e2"
-"execute "set <M-3>=\e3"
-"execute "set <M-4>=\e4"
+execute "set <M-1>=\e1"
+execute "set <M-2>=\e2"
+execute "set <M-3>=\e3"
+execute "set <M-4>=\e4"
+execute "set <M-5>=\e5"
+execute "set <M-6>=\e6"
+execute "set <M-7>=\e7"
+execute "set <M-8>=\e8"
 
 nnoremap <TAB>   :wincmd w<CR>
 nnoremap <ENTER> :bn<CR>
 nnoremap <M-3>   :bp<CR>
 nnoremap <M-4>   :clo<CR>
+nnoremap <M-7>   :BookmarkPrev<CR>
+nnoremap <M-8>   :BookmarkNext<CR>
 nnoremap \  :Lines<CR>
 
-nmap <leader>bk       :bd<CR>
-nmap <leader><space>v :split<CR>
-nmap <leader><space>c :vsplit<CR>
-nnoremap <leader>fc   :Files <C-r>=expand("%:h")<CR>/<CR>
-nnoremap <leader>ff   :Files<CR>
-nnoremap <leader>fg   :GFiles<CR>
-nnoremap <leader>bl   :Buffers<CR>
-nnoremap <leader>A    :Rg <C-R><C-W><CR>
-nnoremap <leader>a    :Rg<CR>
-nnoremap <leader>b\   :bLines<CR>
-nnoremap <leader>s    :Snippets<CR>
-nnoremap <leader>=    :EasyAlign<CR>=<CR>
-nnoremap <leader>m\   :Marks<CR>=<CR>
-
-nnoremap <Leader>mt :BookmarkToggle<CR>
-nnoremap <Leader>mm :BookmarkAnnotate<CR>
-nnoremap <Leader>ma :BookmarkShowAll<CR>
-nnoremap <Leader>mn :BookmarkNext<CR>
-nnoremap <Leader>mp :BookmarkPrev<CR>
+nmap     <leader>bk :bd<CR>
+nmap     <leader>wv :split<CR>
+nmap     <leader>wc :vsplit<CR>
+nnoremap <leader>fc :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :GFiles<CR>
+nnoremap <leader>bl :Buffers<CR>
+nnoremap <leader>t  :Tags<CR>
+nnoremap <leader>A  :Rg <C-R><C-W><CR>
+nnoremap <leader>a  :Rg<CR>
+nnoremap <leader>b\ :bLines<CR>
+nnoremap <leader>s  :Snippets<CR>
+nnoremap <leader>=  :EasyAlign<CR>=<CR>
+nnoremap <leader>m\ :Marks<CR>=<CR>
+nnoremap <Leader>mm :BookmarkToggle<CR>
+nnoremap <Leader>ma :BookmarkAnnotate<CR>
+nnoremap <Leader>ms :BookmarkShowAll<CR>
+"nnoremap <Leader>mn :BookmarkNext<CR>
+"nnoremap <Leader>mp :BookmarkPrev<CR>
 nnoremap <Leader>mc :BookmarkClear<CR>
 nnoremap <Leader>mC :BookmarkClearAll<CR>
 
