@@ -2,45 +2,31 @@
 call plug#begin('~/.vim/plugged')
 Plug 'Shougo/vimproc'
 Plug 'airblade/vim-gitgutter'
-"Plug 'nanotech/jellybeans.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-surround'
-"Plug 'w0rp/ale'
 Plug 'terryma/vim-multiple-cursors'
-"Plug 'mg979/vim-visual-multi'
 Plug 'Shougo/vimshell'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-"Plug 'sirver/ultisnips'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
-"Plug 'othree/eregex.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mgee/lightline-bufferline'
 Plug 'terryma/vim-expand-region'
-"Plug 'maralla/completor.vim'
-"Plug 'vhda/verilog_systemverilog.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'editorconfig/editorconfig-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'morhetz/gruvbox'
-"Plug 'philj56/vim-asm-indent'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': './install.sh'
-    \ }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh' }
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'mtdl9/vim-log-highlighting'
-"Plug 'zxqfl/tabnine-vim'
-"Plug 'xolox/vim-easytags'
 call plug#end()
 
 syntax   on
@@ -255,6 +241,51 @@ command! -bang -nargs=* Rg
 
 cnoremap <expr> <c-x><c-d> <sid>append_dir_with_fzf(getcmdline())
 inoremap <expr> <c-x><c-k> fzf#vim#complete('cat ~/.vim/english-words.txt')
+
+"remap <silent> <leader>e :call Fzf_dev()<CR>
+
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find
+  \ call fzf#vim#grep(
+  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+
+" Files + devicons
+function! Fzf_dev()
+  let l:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {} | head -'.&lines.'"'
+
+  function! s:files()
+    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    "return s:prepend_icon(l:files)
+    return l:files
+  endfunction
+
+  "function! s:prepend_icon(candidates)
+    "let l:result = []
+    "for l:candidate in a:candidates
+      "let l:filename = fnamemodify(l:candidate, ':p:t')
+      "let l:icon = WebDevIconsGetFileTypeSymbol(l:filename,
+      "isdirectory(l:filename))
+      "call add(l:result, printf('%s %s', l:icon, l:candidate))
+    "endfor
+    "return l:result
+  "endfunction
+
+  function! s:edit_file(item)
+      let l:pos = stridx(a:item, ' ')
+      let l:file_path = a:item[pos+1:-1]
+      execute 'silent e' l:file_path
+  endfunction
+
+  call fzf#run({
+          \ 'source': <sid>files(),
+          \ 'sink':   function('s:edit_file'),
+          \ 'options': '-m ' . l:fzf_files_options,
+          \ 'down':    '40%' })
+endfunction
+
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-rg)
