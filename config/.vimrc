@@ -53,6 +53,7 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 
 " SystemVerilog
 au BufNewFile,BufRead *.svi,*.sv,*.svh		setf systemverilog
+au BufNewFile,BufRead *.vsif,*.vcom,*.ecom		setf cpp
 au FileType systemverilog set tags=~/UVM/uvm_tags
 
 "colorscheme jellybeans
@@ -152,7 +153,7 @@ nnoremap <leader>bl :Buffers<CR>
 nnoremap <leader>t  :Tags<CR>
 nnoremap <leader>A  :Rg <C-R><C-W><CR>
 nnoremap <leader>a  :Rg<CR>
-nnoremap <leader>b\ :bLines<CR>
+nnoremap <leader>b\ :BLines<CR>
 nnoremap <leader>s  :Snippets<CR>
 nnoremap <leader>=  :EasyAlign<CR>=<CR>
 nnoremap <leader>m\ :Marks<CR>=<CR>
