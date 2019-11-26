@@ -2,33 +2,32 @@
 call plug#begin('~/.vim/plugged')
 Plug 'Shougo/vimproc'
 Plug 'airblade/vim-gitgutter'
-Plug 'nanotech/jellybeans.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
-"Plug 'terryma/vim-multiple-cursors'
-Plug 'mg979/vim-visual-multi'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'Shougo/vimshell'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
-Plug 'sirver/ultisnips'
+Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
-"Plug 'othree/eregex.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mgee/lightline-bufferline'
 Plug 'terryma/vim-expand-region'
-Plug 'maralla/completor.vim'
-"Plug 'vhda/verilog_systemverilog.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'morhetz/gruvbox'
-Plug 'philj56/vim-asm-indent'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh' }
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'mtdl9/vim-log-highlighting'
+"Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 syntax   on
@@ -112,31 +111,41 @@ set tm=500
 "nmap <C+1> :wincmd o<CR>
 "nmap <C+2> :bn<CR>
 "nmap <C+3> :bp<CR>
-execute "set <M-1>=\e1"
-execute "set <M-2>=\e2"
-execute "set <M-3>=\e3"
-execute "set <M-4>=\e4"
+"execute "set <M-1>=\e1"
+"execute "set <M-2>=\e2"
+"execute "set <M-3>=\e3"
+"execute "set <M-4>=\e4"
 
 nnoremap <TAB>   :wincmd w<CR>
 nnoremap <ENTER> :bn<CR>
 nnoremap <M-3>   :bp<CR>
 nnoremap <M-4>   :clo<CR>
-nnoremap \  :BLines<CR>
+nnoremap \  :Lines<CR>
 
-nmap <leader>bk :bd<CR>
+nmap <leader>bk       :bd<CR>
 nmap <leader><space>v :split<CR>
 nmap <leader><space>c :vsplit<CR>
-nnoremap <leader>fc :Files <C-r>=expand("%:h")<CR>/<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fg :GFiles<CR>
-nnoremap <leader>bl :Buffers<CR>
-nnoremap <leader>a  :Rg <C-R><C-W><CR>
-nnoremap <leader>b\ :Lines<CR>
-nnoremap <leader>s  :Snippets<CR>
-nnoremap <leader>=  :EasyAlign<CR>=<CR>
-xnoremap <leader>=  :EasyAlign<CR>=<CR>
+nnoremap <leader>fc   :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <leader>fm   :FZFMru<CR>
+nnoremap <leader>ff   :Files<CR>
+nnoremap <leader>fg   :GFiles<CR>
+nnoremap <leader>bl   :Buffers<CR>
+nnoremap <leader>A    :Rg <C-R><C-W><CR>
+nnoremap <leader>a    :Rg<CR>
+nnoremap <leader>b\   :bLines<CR>
+nnoremap <leader>s    :Snippets<CR>
+nnoremap <leader>=    :EasyAlign<CR>=<CR>
+nnoremap <leader>m\   :Marks<CR>=<CR>
+
+nnoremap <Leader>mt :BookmarkToggle<CR>
+nnoremap <Leader>mm :BookmarkAnnotate<CR>
+nnoremap <Leader>ma :BookmarkShowAll<CR>
+nnoremap <Leader>mn :BookmarkNext<CR>
+nnoremap <Leader>mp :BookmarkPrev<CR>
+nnoremap <Leader>mc :BookmarkClear<CR>
+nnoremap <Leader>mC :BookmarkClearAll<CR>
+
 set wildignore+=*/.git/*,*/tmp/*,*.swp,*.hg/*,*.o,*.bin,*.so
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " ,p toggles paste mode
 nmap <leader>pp :set paste!<BAR>set paste?<CR>"
@@ -148,22 +157,8 @@ vnoremap > >gv"
 " disbale Highlight search
 nnoremap <silent><c-l> :nohl<cr><c-l>
 
-
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-
-
-let g:airline_poweline_fonts = 1
-"let g:airline_left_sep='»'
-let g:airline_theme='base16'
-" enable tabline
-let g:airline#extensions#tabline#enabled = 1
-" set left separator
-let g:airline#extensions#tabline#left_sep = ' '
-" set left separator which are not editting
-let g:airline#extensions#tabline#left_alt_sep = '|'
-" show buffer number
-let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "incserach
 map /  <Plug>(incsearch-forward)
@@ -188,10 +183,26 @@ let g:lightline#bufferline#show_number  = 1
 let g:lightline#bufferline#shorten_path = 0
 let g:lightline#bufferline#unnamed      = '[No Name]'
 
-let g:lightline                  = {}
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
+"let g:lightline                  = {}
+"let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+"let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+"let g:lightline.component_type   = {'buffers': 'tabsel'}
+
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
+      \ },
+      \ }
 
 
 let g:UltiSnipsExpandTrigger="<c-e>"
@@ -215,34 +226,60 @@ function! Tab_Or_Complete() abort
   endif
 endfunction
 
-" Use `tab` key to select completions.  Default is arrow keys.
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Use tab to trigger auto completion.  Default suggests completions as you type.
-"let g:completor_auto_trigger = 0
-"inoremap <expr> <Tab> Tab_Or_Complete()
-
-
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-"inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-
-command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap(
-  \ {'source': 'find '.
-  \ (empty(<f-args>) ? '.' : <f-args>)." -type d -not -path '*/\.*' ",
-  \  'sink': 'cd'}))
-
-function! s:append_dir_with_fzf(line)
-  call fzf#run(fzf#wrap({
-    \ 'options': ['--prompt', a:line.'> '],
-    \ 'source': "find . -type d -not -path '*/\.*' ",
-    \ 'sink': {line -> feedkeys("\<esc>:".a:line.line, 'n')}}))
-  return ''
-endfunction
+command! -bang -nargs=* Rg
+\ call fzf#vim#grep(
+\ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+\ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+\ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+\ <bang>0)
 
 cnoremap <expr> <c-x><c-d> <sid>append_dir_with_fzf(getcmdline())
 inoremap <expr> <c-x><c-k> fzf#vim#complete('cat ~/.vim/english-words.txt')
+
+"remap <silent> <leader>e :call Fzf_dev()<CR>
+
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find
+  \ call fzf#vim#grep(
+  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+
+" Files + devicons
+function! Fzf_dev()
+  let l:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {} | head -'.&lines.'"'
+
+  function! s:files()
+    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    "return s:prepend_icon(l:files)
+    return l:files
+  endfunction
+
+  "function! s:prepend_icon(candidates)
+    "let l:result = []
+    "for l:candidate in a:candidates
+      "let l:filename = fnamemodify(l:candidate, ':p:t')
+      "let l:icon = WebDevIconsGetFileTypeSymbol(l:filename,
+      "isdirectory(l:filename))
+      "call add(l:result, printf('%s %s', l:icon, l:candidate))
+    "endfor
+    "return l:result
+  "endfunction
+
+  function! s:edit_file(item)
+      let l:pos = stridx(a:item, ' ')
+      let l:file_path = a:item[pos+1:-1]
+      execute 'silent e' l:file_path
+  endfunction
+
+  call fzf#run({
+          \ 'source': <sid>files(),
+          \ 'sink':   function('s:edit_file'),
+          \ 'options': '-m ' . l:fzf_files_options,
+          \ 'down':    '40%' })
+endfunction
+
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-rg)
@@ -265,3 +302,72 @@ let g:fzf_colors =
   \ "header":  ["fg", "WildMenu"] }
 
 let g:VM_leader = ','
+
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+set rtp+=~/.vim/Plugged/LanguageClient-neovim
+let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
+map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
+map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+map <Leader>lb :call LanguageClient#textDocument_references()<CR>
+map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+
+" Better display for messages
+set cmdheight=1
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <C-k> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
+
