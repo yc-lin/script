@@ -27,7 +27,13 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh' 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'mtdl9/vim-log-highlighting'
-"Plug 'ryanoasis/vim-devicons'
+"Plug 'jceb/vim-orgmode'
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-speeddating'
+Plug 'vim-scripts/utl.vim'
+Plug 'vim-scripts/SyntaxRange'
+Plug 'mattn/calendar-vim'
+Plug 'chrisbra/NrrwRgn'
 call plug#end()
 
 syntax   on
@@ -111,34 +117,37 @@ set tm=500
 "nmap <C+1> :wincmd o<CR>
 "nmap <C+2> :bn<CR>
 "nmap <C+3> :bp<CR>
-"execute "set <M-1>=\e1"
-"execute "set <M-2>=\e2"
-"execute "set <M-3>=\e3"
-"execute "set <M-4>=\e4"
+execute "set <M-1>=\e1"
+execute "set <M-2>=\e2"
+execute "set <M-3>=\e3"
+execute "set <M-4>=\e4"
 
 nnoremap <TAB>   :wincmd w<CR>
 nnoremap <ENTER> :bn<CR>
+nnoremap <M-1>   :wincmd w<CR>
+nnoremap <M-2>   :bn<CR>
 nnoremap <M-3>   :bp<CR>
 nnoremap <M-4>   :clo<CR>
-nnoremap \  :Lines<CR>
+"nnoremap \  :Lines<CR>
 
-nmap <leader>bk       :bd<CR>
-nmap <leader><space>v :split<CR>
-nmap <leader><space>c :vsplit<CR>
-nnoremap <leader>fc   :Files <C-r>=expand("%:h")<CR>/<CR>
-nnoremap <leader>fm   :FZFMru<CR>
-nnoremap <leader>ff   :Files<CR>
-nnoremap <leader>fg   :GFiles<CR>
-nnoremap <leader>bl   :Buffers<CR>
-nnoremap <leader>A    :Rg <C-R><C-W><CR>
-nnoremap <leader>a    :Rg<CR>
-nnoremap <leader>b\   :bLines<CR>
-nnoremap <leader>s    :Snippets<CR>
-nnoremap <leader>=    :EasyAlign<CR>=<CR>
-nnoremap <leader>m\   :Marks<CR>=<CR>
+nnoremap <leader>wv :split<CR>
+nnoremap <leader>wc :vsplit<CR>
+nnoremap <leader>fc :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <leader>fz :FZFMru<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :GFiles<CR>
+nnoremap <leader>fw :Rg <C-R><C-W><CR>
+nnoremap <leader>fa :Rg<CR>
+nnoremap <leader>fl :Lines<CR>
+nnoremap <leader>fb :BLines<CR>
+nnoremap <leader>fm :Marks<CR>=<CR>
+nnoremap <leader>fs :Snippets<CR>
+nnoremap <leader>k  :bd<CR>
+nnoremap <leader>b  :Buffers<CR>
+nnoremap <leader>=  :EasyAlign<CR>=<CR>
 
-nnoremap <Leader>mt :BookmarkToggle<CR>
 nnoremap <Leader>mm :BookmarkAnnotate<CR>
+nnoremap <Leader>mt :BookmarkToggle<CR>
 nnoremap <Leader>ma :BookmarkShowAll<CR>
 nnoremap <Leader>mn :BookmarkNext<CR>
 nnoremap <Leader>mp :BookmarkPrev<CR>
