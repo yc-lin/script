@@ -27,7 +27,6 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh' 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'mtdl9/vim-log-highlighting'
-"Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 syntax   on
@@ -123,8 +122,8 @@ nnoremap <M-4>   :clo<CR>
 nnoremap \  :Lines<CR>
 
 nmap <leader>bk       :bd<CR>
-nmap <leader><space>v :split<CR>
-nmap <leader><space>c :vsplit<CR>
+nmap <leader>wv :split<CR>
+nmap <leader>wc :vsplit<CR>
 nnoremap <leader>fc   :Files <C-r>=expand("%:h")<CR>/<CR>
 nnoremap <leader>fm   :FZFMru<CR>
 nnoremap <leader>ff   :Files<CR>
@@ -284,7 +283,7 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-rg)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-let g:fzf_layout = { 'down': '~25%' }
+let g:fzf_layout = { 'down': '~30%' }
 
 let g:fzf_colors =
 \ { "fg":      ["fg", "Normal"],
@@ -311,7 +310,7 @@ let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
-set rtp+=~/.vim/Plugged/LanguageClient-neovim
+set rtp+=~/.vim/plugged/LanguageClient-neovim
 let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
