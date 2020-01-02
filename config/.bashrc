@@ -25,7 +25,8 @@ fi
 
 export TERM="screen-256color"
 export PATH="$PATH:$HOME/.script/bin/"
-export PS1="${C32}B \h${C37} \u${C32}|${C37}\j${C32}|${C37}\w${C32}|\$(git_branch)\n${C37}${C33}∴ ${C37}${C0}"
+export PATH="$PATH:$HOME/repo/tmux"
+export PS1="${C32}B \h${C37} \u${C32}|${C37}\j${C32}|${C37}\w${C32}|\$(git_branch)\n${C37}${C33}B ${C37}${C0}"
 export EDITOR=vim
 
 [[ -s "$HOME/.tmuxifier/init.sh" ]] && source "$HOME/.tmuxifier/init.sh"

@@ -27,7 +27,12 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh' 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'mtdl9/vim-log-highlighting'
-Plug 'pbogut/fzf-mru.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-speeddating'
+Plug 'vim-scripts/utl.vim'
+Plug 'vim-scripts/SyntaxRange'
+Plug 'mattn/calendar-vim'
+Plug 'chrisbra/NrrwRgn'
 call plug#end()
 
 syntax   on
@@ -124,32 +129,32 @@ execute "set <M-8>=\e8"
 
 nnoremap <TAB>   :wincmd w<CR>
 nnoremap <ENTER> :bn<CR>
+nnoremap <M-1>   :wincmd w<CR>
+nnoremap <M-2>   :bn<CR>
 nnoremap <M-3>   :bp<CR>
 nnoremap <M-4>   :clo<CR>
-nnoremap <M-7>   :BookmarkPrev<CR>
-nnoremap <M-8>   :BookmarkNext<CR>
-nnoremap \  :Lines<CR>
 
-nmap     <leader>bk :bd<CR>
-nmap     <leader>wv :split<CR>
-nmap     <leader>wc :vsplit<CR>
+nnoremap <leader>wv :split<CR>
+nnoremap <leader>wc :vsplit<CR>
 nnoremap <leader>fc :Files <C-r>=expand("%:h")<CR>/<CR>
+nnoremap <leader>fz :FZFMru<CR>
 nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fm :FZFMru<CR>
 nnoremap <leader>fg :GFiles<CR>
-nnoremap <leader>bl :Buffers<CR>
-nnoremap <leader>t  :Tags<CR>
-nnoremap <leader>A  :Rg <C-R><C-W><CR>
-nnoremap <leader>a  :Rg<CR>
-nnoremap <leader>b\ :BLines<CR>
-nnoremap <leader>s  :Snippets<CR>
+nnoremap <leader>fw :Rg <C-R><C-W><CR>
+nnoremap <leader>fa :Rg<CR>
+nnoremap <leader>fl :Lines<CR>
+nnoremap <leader>fb :BLines<CR>
+nnoremap <leader>fm :Marks<CR>=<CR>
+nnoremap <leader>fs :Snippets<CR>
+nnoremap <leader>k  :bd<CR>
+nnoremap <leader>b  :Buffers<CR>
 nnoremap <leader>=  :EasyAlign<CR>=<CR>
-nnoremap <leader>m\ :Marks<CR>=<CR>
-nnoremap <Leader>mm :BookmarkToggle<CR>
-nnoremap <Leader>ma :BookmarkAnnotate<CR>
-nnoremap <Leader>ms :BookmarkShowAll<CR>
-"nnoremap <Leader>mn :BookmarkNext<CR>
-"nnoremap <Leader>mp :BookmarkPrev<CR>
+
+nnoremap <Leader>mm :BookmarkAnnotate<CR>
+nnoremap <Leader>mt :BookmarkToggle<CR>
+nnoremap <Leader>ma :BookmarkShowAll<CR>
+nnoremap <Leader>mn :BookmarkNext<CR>
+nnoremap <Leader>mp :BookmarkPrev<CR>
 nnoremap <Leader>mc :BookmarkClear<CR>
 nnoremap <Leader>mC :BookmarkClearAll<CR>
 
@@ -292,7 +297,7 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-rg)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-let g:fzf_layout = { 'down': '~25%' }
+let g:fzf_layout = { 'down': '~30%' }
 
 let g:fzf_colors =
 \ { "fg":      ["fg", "Normal"],
@@ -319,7 +324,7 @@ let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
-set rtp+=~/.vim/Plugged/LanguageClient-neovim
+set rtp+=~/.vim/plugged/LanguageClient-neovim
 let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper'] }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
