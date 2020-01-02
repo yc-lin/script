@@ -27,6 +27,7 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh' 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'mtdl9/vim-log-highlighting'
+Plug 'pbogut/fzf-mru.vim'
 call plug#end()
 
 syntax   on
@@ -134,6 +135,7 @@ nmap     <leader>wv :split<CR>
 nmap     <leader>wc :vsplit<CR>
 nnoremap <leader>fc :Files <C-r>=expand("%:h")<CR>/<CR>
 nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fm :FZFMru<CR>
 nnoremap <leader>fg :GFiles<CR>
 nnoremap <leader>bl :Buffers<CR>
 nnoremap <leader>t  :Tags<CR>
@@ -244,13 +246,13 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete('cat ~/.vim/english-words.txt')
 
 "remap <silent> <leader>e :call Fzf_dev()<CR>
 
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  set grepprg=rg\ --vimgrep
-  command! -bang -nargs=* Find
-  \ call fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-endif
+"if executable('rg')
+  "let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  "set grepprg=rg\ --vimgrep
+  "command! -bang -nargs=* Find
+  "\ call fzf#vim#grep(
+  "\ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+"endif
 
 " Files + devicons
 function! Fzf_dev()
