@@ -1,3 +1,4 @@
+"YingCheng.Lin VIM Configuration"
 
 call plug#begin('~/.vim/plugged')
 Plug 'Shougo/vimproc'
@@ -11,14 +12,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'mgee/lightline-bufferline'
 Plug 'terryma/vim-expand-region'
 Plug 'scrooloose/nerdcommenter'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'morhetz/gruvbox'
@@ -33,7 +32,9 @@ Plug 'vim-scripts/utl.vim'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'mattn/calendar-vim'
 Plug 'chrisbra/NrrwRgn'
+Plug 'chaoren/vim-wordmotion'
 call plug#end()
+
 
 syntax   on
 filetype on
@@ -68,7 +69,6 @@ set smartindent
 set nocompatible
 set noerrorbells
 set novisualbell
-set t_vb=
 set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
@@ -90,28 +90,25 @@ set list
 set clipboard=unnamed
 set guioptions-=m
 set guioptions-=T
-set guifont=Fira\ Mono\ for\ Powerline\ 9
-
-
-" TAB setting
+set termwinscroll=10240
+set guifont=Fira\ Mono\ for\ Powerline\:h14
 set expandtab
 set softtabstop=2
 set shiftwidth=2
 set tabstop=2
-au FileType Makefile set noexpandtab
-
-" disable sound on errors
 set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
+set wildignore+=*/.git/*,*/tmp/*,*.swp,*.hg/*,*.o,*.bin,*.so
 
-"for i in range(48,57)
-"  let c = nr2char(i)
-"  exec "map \e".c." <M-".c.">"
-"  exec "map! \e".c." <M-".c.">"
-"endfor
-"
+au FileType Makefile set noexpandtab
+
+
+let g:terminal_ansi_colors = [ '#073642', '#dc322f', '#859900', '#b58900', '#268bd2', '#d33682', '#2aa198', '#eee8d5', '#002b36', '#cb4b16', '#586e75', '#657b83', '#839496', '#6c71c4', '#93a1a1', '#fdf6e3']
+
+let g:wordmotion_spaces = '_-.'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHORTCUT
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -127,13 +124,16 @@ execute "set <M-6>=\e6"
 execute "set <M-7>=\e7"
 execute "set <M-8>=\e8"
 
-nnoremap <TAB>   :wincmd w<CR>
-nnoremap <ENTER> :bn<CR>
-nnoremap <M-1>   :wincmd w<CR>
+tnoremap <F1>    <C-W><C-W>
+nnoremap <F1>    :wincmd w<CR>
+"nnoremap <F2>    :bn<CR>
+"nnoremap <M-1>   :wincmd w<CR>
 nnoremap <M-2>   :bn<CR>
 nnoremap <M-3>   :bp<CR>
 nnoremap <M-4>   :clo<CR>
 
+"nnoremap <leader><space> :wincmd w<CR>
+nnoremap <leader>i  :IndentGuidesToggle<CR>
 nnoremap <leader>wv :split<CR>
 nnoremap <leader>wc :vsplit<CR>
 nnoremap <leader>fc :Files <C-r>=expand("%:h")<CR>/<CR>
@@ -150,15 +150,15 @@ nnoremap <leader>k  :bd<CR>
 nnoremap <leader>b  :Buffers<CR>
 nnoremap <leader>=  :EasyAlign<CR>=<CR>
 
-nnoremap <Leader>mm :BookmarkAnnotate<CR>
-nnoremap <Leader>mt :BookmarkToggle<CR>
-nnoremap <Leader>ma :BookmarkShowAll<CR>
+nnoremap <Leader>ma :BookmarkAnnotate<CR>
+nnoremap <Leader>mm :BookmarkToggle<CR>
+nnoremap <Leader>ms :BookmarkShowAll<CR>
 nnoremap <Leader>mn :BookmarkNext<CR>
 nnoremap <Leader>mp :BookmarkPrev<CR>
 nnoremap <Leader>mc :BookmarkClear<CR>
 nnoremap <Leader>mC :BookmarkClearAll<CR>
+nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 
-set wildignore+=*/.git/*,*/tmp/*,*.swp,*.hg/*,*.o,*.bin,*.so
 
 " ,p toggles paste mode
 nmap <leader>pp :set paste!<BAR>set paste?<CR>"
@@ -170,6 +170,14 @@ vnoremap > >gv"
 " disbale Highlight search
 nnoremap <silent><c-l> :nohl<cr><c-l>
 
+"
+let g:bookmark_no_default_key_mappings = 1
+
+" expand region
+map K <Plug>(expand_region_expand)
+map J <Plug>(expand_region_shrink)
+
+"EasyAlign
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
@@ -178,7 +186,6 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-set hlsearch
 let g:incsearch#auto_nohlsearch = 1
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
@@ -187,19 +194,9 @@ map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
-let g:ale_completion_enable = 1
-
-let g:eregrex_default_enable = 1
-let g:eregrex_force_case = 0
-
 let g:lightline#bufferline#show_number  = 1
 let g:lightline#bufferline#shorten_path = 0
-let g:lightline#bufferline#unnamed      = '[No Name]'
-
-"let g:lightline                  = {}
-"let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-"let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-"let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline#bufferline#unicode_symbols = 1
 
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
@@ -216,28 +213,6 @@ let g:lightline = {
       \   'currentfunction': 'CocCurrentFunction'
       \ },
       \ }
-
-
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips","~/.vim/snippets"]
-
-"let g:completor_auto_trigger = 0
-"inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
-
-function! Tab_Or_Complete() abort
-  " If completor is already open the `tab` cycles through suggested completions.
-  if pumvisible()
-    return "\<C-N>"
-  " If completor is not open and we are in the middle of typing a word then
-  " `tab` opens completor menu.
-  elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
-    return "\<C-R>=completor#do('complete')\<CR>"
-  else
-    " If we aren't typing a word and we press `tab` simply do the normal `tab`
-    " action.
-    return "\<Tab>"
-  endif
-endfunction
 
 command! -bang -nargs=* Rg
 \ call fzf#vim#grep(
@@ -336,6 +311,7 @@ map <Leader>lb :call LanguageClient#textDocument_references()<CR>
 map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
 map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
 
+" COC
 " Better display for messages
 set cmdheight=1
 
@@ -347,40 +323,41 @@ set shortmess+=c
 
 " always show signcolumns
 set signcolumn=yes
+let g:coc_snippet_next = '<tab>'
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <C-k> coc#refresh()
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Highlight symbol under cursor on CursorHold
 
-
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><cr>    pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
+inoremap <silent><expr> <c-space> coc#refresh()
+nnoremap <leader> K :call <SID>show_documentation()<CR>
+nmap <leader>cr <Plug>(coc-rename)
+nmap <leader>cdp <Plug>(coc-diagnostic-prev)
+nmap <leader>cdn <Plug>(coc-diagnostic-next)
+nmap <leader>cgd <Plug>(coc-definition)
+nmap <leader>cgy <Plug>(coc-type-definition)
+nmap <leader>cgi <Plug>(coc-implementation)
+nmap <leader>cgr <Plug>(coc-references)
+xmap <leader>c=  <Plug>(coc-format-selected)
+nmap <leader>c=  <Plug>(coc-format-selected)
+nmap <leader>cma <Plug>(coc-bookmark-annotate)
+nmap <leader>cmm <Plug>(coc-bookmark-toggle)
+nmap <leader>cmp <Plug>(coc-bookmark-prev)
+nmap <leader>cmn <Plug>(coc-bookmark-next)
 
