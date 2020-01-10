@@ -33,8 +33,8 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'mattn/calendar-vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'chaoren/vim-wordmotion'
+Plug 'farmergreg/vim-lastplace'
 call plug#end()
-
 
 syntax   on
 filetype on
@@ -42,14 +42,23 @@ filetype plugin on
 filetype indent on
 filetype plugin indent on
 
-autocmd! bufwritepost .vimrc source ~/.vimrc
-
-" SystemVerilog
 au BufNewFile,BufRead *.svi,*.sv,*.svh		setf systemverilog
 au BufNewFile,BufRead *.vsif,*.vcom,*.ecom		setf cpp
 au FileType systemverilog set tags=~/UVM/uvm_tags
+set viminfo='10,\"100,:20,%,n~/.viminfo
 
-"colorscheme jellybeans
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
 colorscheme gruvbox
 set background=dark
 let mapleader = "\<Space>"
@@ -103,7 +112,6 @@ set tm=500
 set wildignore+=*/.git/*,*/tmp/*,*.swp,*.hg/*,*.o,*.bin,*.so
 
 au FileType Makefile set noexpandtab
-
 
 let g:terminal_ansi_colors = [ '#073642', '#dc322f', '#859900', '#b58900', '#268bd2', '#d33682', '#2aa198', '#eee8d5', '#002b36', '#cb4b16', '#586e75', '#657b83', '#839496', '#6c71c4', '#93a1a1', '#fdf6e3']
 
@@ -159,7 +167,6 @@ nnoremap <Leader>mc :BookmarkClear<CR>
 nnoremap <Leader>mC :BookmarkClearAll<CR>
 nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 
-
 " ,p toggles paste mode
 nmap <leader>pp :set paste!<BAR>set paste?<CR>"
 
@@ -174,8 +181,8 @@ nnoremap <silent><c-l> :nohl<cr><c-l>
 let g:bookmark_no_default_key_mappings = 1
 
 " expand region
-map K <Plug>(expand_region_expand)
-map J <Plug>(expand_region_shrink)
+map <C-K> <Plug>(expand_region_expand)
+map <C-J> <Plug>(expand_region_shrink)
 
 "EasyAlign
 xmap ga <Plug>(EasyAlign)
