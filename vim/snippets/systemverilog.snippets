@@ -2,41 +2,41 @@ extends systemverilog
 #uvm class
 snippet uvm_comp_class
 	class ${1: class_name} extends ${2: exten_class}
-		\`uvm_componemt_utils($1)
-		function new(string name = "$1";
+		`uvm_componemt_utils($1)
+		function new(string name = "$1");
 			super.new(name);
-		endfunction
+		endfunction : new
 		${0}
 	endclass: $1
 
 snippet uvm_info
-	\`uvm_info(get_type_name(), $psprintf("${1}", ${2}), UVM_${3});
+	`uvm_info(get_type_name(), $psprintf("${1}", ${2}), UVM_${3});
 
 snippet uvm_error
-	\`uvm_error(get_type_name(), $psprintf("${1}", ${2}));
+	`uvm_error(get_type_name(), $psprintf("${1}", ${2}));
 
 snippet uvm_fatal
-	\`uvm_fatal(get_type_name(), $psprintf("${1}", ${2}));
+	`uvm_fatal(get_type_name(), $psprintf("${1}", ${2}));
 
 snippet uvm_config_db
-	\`uvm_config_db#(${1})::${2:s}et(${3:this}, ${4}, $4);
+	`uvm_config_db#(${1})::${2:s}et(${3:this}, ${4}, $4);
 
 snippet uvm_component_utils_begin
-	\`uvm_component_utils_begin(${1})
+	`uvm_component_utils_begin(${1})
 	${0}
-	\`uvm_component_utils_end
+	`uvm_component_utils_end
 
 snippet uvm_field
-	\`uvm_field_${1}(${2}, UVM_${3});${0}
+	`uvm_field_${1}(${2}, UVM_${3});${0}
 
 snippet ifndef
-	\`ifndef ${1:MACRO_GAURAND}
-	\`define $1
+	`ifndef ${1:MACRO_GAURAND}
+	`define $1
 	${0}
-	\`endif //$1
+	`endif //$1
 
 snippet ifdef
-	\`ifdef ${1:DEFINED}
+	`ifdef ${1:DEFINED}
 	${0}
-	\`else
-	\`endif //$1
+	`else
+	`endif //$1

@@ -23,7 +23,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'morhetz/gruvbox'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': './install.sh' }
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'mtdl9/vim-log-highlighting'
 Plug 'vimwiki/vimwiki'
@@ -34,6 +34,7 @@ Plug 'mattn/calendar-vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'chaoren/vim-wordmotion'
 Plug 'farmergreg/vim-lastplace'
+Plug 'skywind3000/vim-terminal-help'
 call plug#end()
 
 syntax   on
@@ -353,7 +354,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><cr>    pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" :  coc#refresh()
 inoremap <silent><expr> <c-space> coc#refresh()
-nnoremap <leader> K :call <SID>show_documentation()<CR>
+nnoremap <leader>K :call <SID>show_documentation()<CR>
 nmap <leader>cr <Plug>(coc-rename)
 nmap <leader>cdp <Plug>(coc-diagnostic-prev)
 nmap <leader>cdn <Plug>(coc-diagnostic-next)
