@@ -42,3 +42,5 @@
 [user]
 	name = yclin
 	email = yclin@ubuntu
+[credential]
+	helper = osxkeychin

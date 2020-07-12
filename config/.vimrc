@@ -34,7 +34,7 @@ Plug 'mattn/calendar-vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'chaoren/vim-wordmotion'
 Plug 'farmergreg/vim-lastplace'
-Plug 'skywind3000/vim-terminal-help'
+Plug 'voldikss/vim-floaterm'
 call plug#end()
 
 syntax   on
@@ -140,6 +140,7 @@ nnoremap <F1>    :wincmd w<CR>
 nnoremap <M-2>   :bn<CR>
 nnoremap <M-3>   :bp<CR>
 nnoremap <M-4>   :clo<CR>
+let g:floaterm_keymap_toggle ='<F12>'
 
 "nnoremap <leader><space> :wincmd w<CR>
 nnoremap <leader>i  :IndentGuidesToggle<CR>
@@ -280,7 +281,8 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-rg)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-let g:fzf_layout = { 'down': '~30%' }
+"let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'yoffset':0.3, 'border': 'sharp'}  }
 
 let g:fzf_colors =
 \ { "fg":      ["fg", "Normal"],
